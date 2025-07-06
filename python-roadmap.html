@@ -1,0 +1,1196 @@
+<!--
+  AI using Python - 6 Month Roadmap Tracker
+  Author: Rameshwar Bhagwat
+  All-in-one HTML, CSS, JS file
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI using Python - 6 Month Roadmap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6a82fb;
+      --secondary: #fc5c7d;
+      --card-bg: rgba(255,255,255,0.85);
+      --card-bg-dark: rgba(30,34,44,0.92);
+      --card-shadow: 0 4px 24px rgba(106,130,251,0.10);
+      --progress-bg: #e0e0e0;
+      --progress-bg-dark: #23263a;
+      --progress-fill: linear-gradient(90deg, #6a82fb 0%, #fc5c7d 100%);
+      --accent: #ffb347;
+      --success: #4ade80;
+      --danger: #ff6b6b;
+      --glass: rgba(255,255,255,0.45);
+      --glass-dark: rgba(30,34,44,0.7);
+      --text: #222;
+      --text-dark: #f3f3f3;
+      --footer-bg: #f8fafc;
+      --footer-bg-dark: #23263a;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: linear-gradient(135deg, #6a82fb 0%, #fc5c7d 100%);
+      min-height: 100vh;
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark {
+      background: linear-gradient(135deg, #23263a 0%, #6a82fb 100%);
+      color: var(--text-dark);
+    }
+    .container {
+      max-width: 900px;
+      margin: 32px auto 0 auto;
+      background: var(--card-bg);
+      border-radius: 18px;
+      box-shadow: var(--card-shadow);
+      padding: 32px 18px 24px 18px;
+      position: relative;
+      z-index: 1;
+      transition: background 0.3s;
+    }
+    body.dark .container {
+      background: var(--card-bg-dark);
+    }
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      color: var(--primary);
+      text-shadow: 0 2px 8px rgba(106,130,251,0.10);
+    }
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .progress-section {
+      display: flex;
+      align-items: center;
+      flex: 1 1 300px;
+      min-width: 220px;
+      gap: 10px;
+    }
+    .progress-bar-bg {
+      flex: 1;
+      height: 18px;
+      background: var(--progress-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      min-width: 120px;
+      box-shadow: 0 2px 8px rgba(106,130,251,0.07);
+      transition: background 0.3s;
+    }
+    body.dark .progress-bar-bg {
+      background: var(--progress-bg-dark);
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--progress-fill);
+      width: 0%;
+      border-radius: 10px;
+      transition: width 0.4s cubic-bezier(.4,2,.6,1);
+    }
+    .progress-label {
+      font-weight: 600;
+      font-size: 1rem;
+      min-width: 60px;
+    }
+    .stats {
+      display: flex;
+      gap: 18px;
+      font-size: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .stats span {
+      background: var(--glass);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-weight: 500;
+      box-shadow: 0 1px 4px rgba(106,130,251,0.07);
+      transition: background 0.3s;
+    }
+    body.dark .stats span {
+      background: var(--glass-dark);
+      color: var(--text-dark);
+    }
+    .filter-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: var(--glass);
+      border: none;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--primary);
+      transition: background 0.2s, color 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+    body.dark .filter-btn {
+      background: var(--glass-dark);
+      color: var(--accent);
+    }
+    body.dark .filter-btn.active, body.dark .filter-btn:hover {
+      background: var(--accent);
+      color: #23263a;
+    }
+    .theme-toggle {
+      background: var(--glass);
+      border: none;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 1.1rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--secondary);
+      transition: background 0.2s, color 0.2s;
+      margin-left: 8px;
+    }
+    .theme-toggle:hover {
+      background: var(--secondary);
+      color: #fff;
+    }
+    body.dark .theme-toggle {
+      background: var(--glass-dark);
+      color: var(--accent);
+    }
+    body.dark .theme-toggle:hover {
+      background: var(--accent);
+      color: #23263a;
+    }
+    .reset-btn {
+      background: var(--danger);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(252,92,125,0.10);
+      margin-left: 12px;
+      transition: background 0.2s;
+    }
+    .reset-btn:hover {
+      background: #e63946;
+    }
+    .weeks-list {
+      margin-top: 18px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .week-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      box-shadow: var(--card-shadow);
+      padding: 0 0 0 0;
+      transition: background 0.3s;
+      overflow: hidden;
+      position: relative;
+    }
+    body.dark .week-card {
+      background: var(--card-bg-dark);
+    }
+    .week-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 18px 12px 18px;
+      cursor: pointer;
+      user-select: none;
+      background: var(--glass);
+      transition: background 0.3s;
+    }
+    body.dark .week-header {
+      background: var(--glass-dark);
+      color: var(--text-dark);
+    }
+    .week-header .week-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.18rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+    .week-header .week-status {
+      font-size: 1.3rem;
+      margin-left: 10px;
+    }
+    .week-header .arrow {
+      font-size: 1.2rem;
+      margin-left: 8px;
+      transition: transform 0.3s;
+    }
+    .week-header.collapsed .arrow {
+      transform: rotate(-90deg);
+    }
+    .days-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 18px;
+      padding: 0 18px 18px 18px;
+      width: 100%;
+      transition: max-height 0.3s, opacity 0.3s;
+      background: none;
+    }
+    @media (max-width: 900px) {
+      .days-grid {
+        padding: 0 6px 12px 6px;
+      }
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 10px 2px 10px 2px;
+      }
+      .days-grid {
+        padding: 0 2px 8px 2px;
+      }
+    }
+    .days-grid.collapsed {
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+      padding: 0;
+      margin: 0;
+      transition: max-height 0.3s, opacity 0.3s;
+    }
+    .day-card {
+      background: linear-gradient(120deg, #f8fafc 60%, #e0e7ff 100%);
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(106,130,251,0.07);
+      padding: 14px 10px 10px 10px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 150px;
+      transition: background 0.3s, border 0.3s, opacity 0.3s;
+      width: 100%;
+    }
+    body.dark .day-card {
+      background: linear-gradient(120deg, #23263a 60%, #6a82fb 100%);
+      color: var(--text-dark);
+    }
+    .day-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .day-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .day-complete {
+      accent-color: var(--success);
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+    }
+    .date-label {
+      font-size: 0.92rem;
+      color: var(--accent);
+      margin-left: 8px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .day-status {
+      font-size: 1.2rem;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .tasks-list {
+      margin: 0 0 0 2px;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      width: 100%;
+    }
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+    }
+    .task-checkbox {
+      accent-color: var(--primary);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .explore {
+      color: #6a82fb;
+      font-weight: 500;
+    }
+    body.dark .explore {
+      color: #b4c5ff;
+    }
+    .day-card.completed {
+      border: 2px solid var(--success);
+      background: linear-gradient(120deg, #e0ffe0 60%, #e0e7ff 100%);
+      opacity: 0.93;
+    }
+    body.dark .day-card.completed {
+      background: linear-gradient(120deg, #1e2c1e 60%, #6a82fb 100%);
+      border: 2px solid var(--success);
+      color: var(--text-dark);
+    }
+    .day-card .day-title .icon {
+      color: var(--success);
+    }
+    .day-card .day-title .icon.incomplete {
+      color: #bdbdbd;
+    }
+    .day-card .day-title .icon.explore {
+      color: #6a82fb;
+    }
+    .day-card .day-title .icon.task {
+      color: #fc5c7d;
+    }
+    .day-card .day-title .icon.day {
+      color: #ffb347;
+    }
+    .day-card .day-title .icon.check {
+      color: var(--success);
+    }
+    .day-card .day-title .icon.uncheck {
+      color: #bdbdbd;
+    }
+    .day-card .date-label {
+      transition: color 0.2s;
+    }
+    .day-card.completed .date-label {
+      color: var(--success);
+    }
+    .day-card .day-complete:checked + .date-label {
+      color: var(--success);
+    }
+    .day-card .task-checkbox:checked + span {
+      text-decoration: line-through;
+      color: #6a82fb;
+    }
+    .day-card .task-checkbox:focus {
+      outline: 2px solid var(--primary);
+    }
+    .motivational {
+      margin: 38px auto 0 auto;
+      max-width: 600px;
+      background: linear-gradient(90deg, #fc5c7d 0%, #6a82fb 100%);
+      color: #fff;
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 1.2rem;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: 0 2px 12px rgba(106,130,251,0.10);
+      letter-spacing: 0.5px;
+      margin-bottom: 30px;
+    }
+    .emoji {
+      font-size: 1.3em;
+      margin-right: 4px;
+    }
+    .icon {
+      font-size: 1.1em;
+      margin-right: 2px;
+    }
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 100;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 2rem;
+      box-shadow: 0 2px 12px rgba(106,130,251,0.18);
+      cursor: pointer;
+      opacity: 0.85;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, opacity 0.2s;
+    }
+    .scroll-top-btn.show {
+      display: flex;
+    }
+    .footer {
+      margin-top: 30px;
+      padding: 18px 0 10px 0;
+      text-align: center;
+      font-size: 1rem;
+      background: var(--footer-bg);
+      color: #888;
+      border-radius: 0 0 18px 18px;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 0.5px;
+      box-shadow: 0 -2px 8px rgba(106,130,251,0.07);
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark .footer {
+      background: var(--footer-bg-dark);
+      color: #b4b4b4;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🤖 AI using Python - 6 Month Roadmap</h1>
+    <div class="top-bar">
+      <div class="progress-section">
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+        <span class="progress-label" id="progressLabel">0%</span>
+      </div>
+      <div class="stats" id="stats"></div>
+      <div class="filter-group">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="incomplete">Incomplete</button>
+        <button class="filter-btn" data-filter="completed">Completed</button>
+        <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+        <button class="reset-btn" id="resetBtn">🔄 Reset</button>
+      </div>
+    </div>
+    <div class="weeks-list" id="weeksList"></div>
+  </div>
+  <div class="motivational" id="motivationalQuote"></div>
+  <button class="scroll-top-btn" id="scrollTopBtn" title="Scroll to Top">⬆️</button>
+  <div class="footer">&copy; <span id="footerName">Rameshwar Bhagwat</span> <span id="footerYear"></span></div>
+  <script>
+    // --- Data Model ---
+    const WEEK_ICONS = ["🧠","📘","📊","🤖","💡","🚀"];
+    const TASKS = [
+      [
+        { label: 'Install Python & Setup IDE', icon: '💻' },
+        { label: 'Learn Python Syntax (variables, print, comments)', icon: '📖' },
+        { label: 'Write your first Python script', icon: '✍️' },
+        { label: 'Explore: What is AI? 🤔', icon: '🔍', explore: true }
+      ],
+      [
+        { label: 'Data Types & Type Conversion', icon: '🔢' },
+        { label: 'Input & Output in Python', icon: '🗣️' },
+        { label: 'Basic Math Operations', icon: '➕' },
+        { label: 'Explore: Famous AI Applications', icon: '🤖', explore: true }
+      ],
+      [
+        { label: 'Conditional Statements (if/else)', icon: '🔀' },
+        { label: 'Comparison & Logical Operators', icon: '⚖️' },
+        { label: 'Mini Project: Simple Calculator', icon: '🧮' },
+        { label: 'Explore: AI vs ML vs DL', icon: '🧠', explore: true }
+      ],
+      [
+        { label: 'Loops (for, while)', icon: '🔁' },
+        { label: 'Range & Iteration', icon: '📏' },
+        { label: 'Practice: Print Patterns', icon: '🎨' },
+        { label: 'Explore: History of AI', icon: '📜', explore: true }
+      ],
+      [
+        { label: 'Lists & Tuples', icon: '📋' },
+        { label: 'List Methods & Slicing', icon: '✂️' },
+        { label: 'Practice: List Operations', icon: '📝' },
+        { label: 'Explore: AI in Daily Life', icon: '🏠', explore: true }
+      ],
+      [
+        { label: 'Dictionaries & Sets', icon: '📚' },
+        { label: 'Dictionary Methods', icon: '🔑' },
+        { label: 'Practice: Word Counter', icon: '🔢' },
+        { label: 'Explore: AI Ethics', icon: '⚖️', explore: true }
+      ],
+      [
+        { label: 'Functions & Arguments', icon: '🔧' },
+        { label: 'Return Values', icon: '🔙' },
+        { label: 'Practice: Function Challenges', icon: '🏆' },
+        { label: 'Explore: Future of AI', icon: '🚀', explore: true }
+      ]
+    ];
+    // 24 weeks, each with 7 days, each day with 4 tasks (repeat pattern)
+    const WEEKS = Array.from({length:24}, (_,w) => ({
+      week: w+1,
+      days: Array.from({length:7}, (_,d) => ({
+        day: d+1,
+        tasks: TASKS[d]
+      }))
+    }));
+    // Week titles, overviews, and mini projects
+    // Week 1
+    // ...
+    const WEEK_CONTENT = [
+      // Month 1: Python, Git, Jupyter, Math
+      {
+        title: "Week 1: 🧠 Python Basics & Setup",
+        overview: "Kickstart your AI journey by installing Python, setting up your environment, and writing your first scripts.",
+        project: "Mini Project: Hello Python!",
+        days: [
+          ["Install Python & VS Code/IDE 💻", "Learn about variables, print, and comments 📝", "Write your first Python script ✍️", "🔍 Explore: What is AI?"],
+          ["Data types & type conversion 🔢", "Input/output in Python 🗣️", "Basic math operations ➕", "🔍 Explore: Famous AI applications"],
+          ["Conditional statements (if/else) 🔀", "Comparison/logical operators ⚖️", "Mini project: Simple calculator 🧮", "🔍 Explore: AI vs ML vs DL"],
+          ["Loops (for, while) 🔁", "Range & iteration 📏", "Practice: Print patterns 🎨", "🔍 Explore: History of AI"],
+          ["Lists & tuples 📋", "List methods & slicing ✂️", "Practice: List operations 📝", "🔍 Explore: AI in daily life"],
+          ["Dictionaries & sets 📚", "Dictionary methods 🔑", "Practice: Word counter 🔢", "🔍 Explore: AI ethics"],
+          ["Functions & arguments 🔧", "Return values 🔙", "Practice: Function challenges 🏆", "🔍 Explore: Future of AI"]
+        ]
+      },
+      {
+        title: "Week 2: 📝 Python Data Structures",
+        overview: "Deepen your understanding of Python's built-in data structures and how to manipulate them.",
+        project: "Mini Project: Contact Book",
+        days: [
+          ["Review: Lists, tuples, dictionaries, sets 📚", "Nested data structures 🏗️", "Practice: Nested lists/dicts 🧩", "🔍 Explore: Real-world data structures"],
+          ["String operations & methods 🔤", "String formatting f-strings 🧵", "Practice: String manipulations ✂️", "🔍 Explore: Unicode & encoding"],
+          ["List comprehensions 🌀", "Set comprehensions 🌀", "Practice: Comprehensions challenge 🏆", "🔍 Explore: List vs set performance"],
+          ["Sorting & filtering lists 🔽", "Lambda functions & map/filter 🗺️", "Practice: Custom sorting 🧮", "🔍 Explore: Sorting algorithms"],
+          ["Error handling (try/except) 🚨", "Common exceptions & debugging 🐞", "Practice: Debugging exercises 🛠️", "🔍 Explore: Python error messages"],
+          ["File I/O basics 📂", "Read/write text files 📝", "Practice: File operations 🗃️", "🔍 Explore: CSV & JSON files"],
+          ["Review & recap quiz 📝", "Practice: Data structure quiz 🧠", "Mini project: Contact book 📒", "🔍 Explore: Open-source Python repos"]
+        ]
+      },
+      {
+        title: "Week 3: 📦 Python Functions & Modules",
+        overview: "Master functions, modules, and how to organize code for reusability.",
+        project: "Mini Project: Calculator Module",
+        days: [
+          ["Defining functions 🔧", "Function arguments & defaults ⚙️", "Practice: Function exercises 🏋️", "🔍 Explore: Python built-in functions"],
+          ["Importing modules 📦", "Standard library overview 📚", "Practice: Using math & random 🎲", "🔍 Explore: Useful Python modules"],
+          ["Writing your own modules 📝", "Module structure & __name__ 🏷️", "Practice: Custom module 🛠️", "🔍 Explore: PyPI & pip"],
+          ["Scope & namespaces 🌐", "Global vs local variables 🌍", "Practice: Scope challenge 🧠", "🔍 Explore: Variable shadowing"],
+          ["Docstrings & comments 📝", "Type hints & annotations 🏷️", "Practice: Documenting code 📄", "🔍 Explore: Python typing"],
+          ["Virtual environments 🏕️", "pip & requirements.txt 📄", "Practice: Create a venv 🧪", "🔍 Explore: Dependency management"],
+          ["Review & recap quiz 📝", "Practice: Module quiz 🧠", "Mini project: Calculator module 🧮", "🔍 Explore: Python package structure"]
+        ]
+      },
+      {
+        title: "Week 4: 🏗️ Python OOP & File Handling",
+        overview: "Learn object-oriented programming and how to work with files in Python.",
+        project: "Mini Project: Student Grades Manager",
+        days: [
+          ["Classes & objects 🏗️", "Attributes & methods 🛠️", "Practice: Simple class 🧑‍💻", "🔍 Explore: OOP in real life"],
+          ["Constructors (__init__) 🚀", "Instance vs class variables 🏷️", "Practice: Class variables 🧪", "🔍 Explore: Dunder methods"],
+          ["Inheritance & polymorphism 🧬", "Method overriding 🔄", "Practice: Inheritance challenge 🏆", "🔍 Explore: OOP in libraries"],
+          ["File handling: open/read/write 📂", "Context managers (with) 🔒", "Practice: File reading 🗃️", "🔍 Explore: File formats"],
+          ["Pickle & serialization 🥒", "Practice: Save/load objects 💾", "Error handling in files 🚨", "🔍 Explore: Data persistence"],
+          ["Review: OOP & files 📝", "Practice: OOP quiz 🧠", "Mini project: Grades manager 📊", "🔍 Explore: Python OOP best practices"],
+          ["Git & version control basics 🗂️", "GitHub intro & workflow 🌐", "Practice: Git commands 🧑‍💻", "🔍 Explore: Open-source AI projects"]
+        ]
+      },
+      // Month 2: NumPy, Pandas, Matplotlib, Data Cleaning, EDA
+      {
+        title: "Week 5: 📊 NumPy for Data Science",
+        overview: "Start with NumPy for fast numerical computing and array operations.",
+        project: "Mini Project: Array Statistics",
+        days: [
+          ["Install NumPy & import numpy as np 📦", "Create arrays & array types 🧩", "Practice: Array creation 🏗️", "🔍 Explore: NumPy in AI"],
+          ["Array indexing & slicing ✂️", "Array math & broadcasting ➗", "Practice: Array math 🧮", "🔍 Explore: NumPy performance"],
+          ["Array shapes & reshaping 🔄", "Stacking & splitting arrays 🧱", "Practice: Reshape challenge 🏆", "🔍 Explore: Memory layout"],
+          ["Random numbers & seeds 🎲", "Practice: Random arrays 🧪", "Aggregate functions (sum, mean) ➕", "🔍 Explore: Randomness in ML"],
+          ["Boolean indexing & filtering 🔎", "Practice: Filter arrays 🧹", "Fancy indexing 🧤", "🔍 Explore: NumPy tricks"],
+          ["NumPy for math: dot, transpose, etc. ➗", "Practice: Matrix multiplication 🧮", "Linear algebra basics 📐", "🔍 Explore: NumPy linalg"],
+          ["Review & recap quiz 📝", "Practice: NumPy quiz 🧠", "Mini project: Array stats 📊", "🔍 Explore: NumPy docs"]
+        ]
+      },
+      {
+        title: "Week 6: 🐼 Pandas for Data Analysis",
+        overview: "Learn to use Pandas for data manipulation and analysis.",
+        project: "Mini Project: DataFrame Explorer",
+        days: [
+          ["Install pandas & import pandas as pd 🐼", "Series & DataFrame basics 📊", "Practice: Create DataFrames 🏗️", "🔍 Explore: Pandas in AI"],
+          ["Read CSV & Excel files 📂", "Practice: Load datasets 🗃️", "DataFrame info & describe 📝", "🔍 Explore: Data sources"],
+          ["Selecting & filtering data 🔎", "Practice: Data selection 🧹", "Boolean indexing in pandas 🧤", "🔍 Explore: DataFrame tricks"],
+          ["Adding/removing columns & rows ➕➖", "Practice: DataFrame edits 🛠️", "Handling missing data 🚫", "🔍 Explore: Data cleaning"],
+          ["GroupBy & aggregation 🧮", "Practice: Grouping data 🧑‍💻", "Sorting & ranking 🔽", "🔍 Explore: Data aggregation"],
+          ["Merging & joining DataFrames 🔗", "Practice: Merge challenge 🏆", "Concatenation & append ➕", "🔍 Explore: DataFrame joins"],
+          ["Review & recap quiz 📝", "Practice: Pandas quiz 🧠", "Mini project: DataFrame explorer 📊", "🔍 Explore: Pandas docs"]
+        ]
+      },
+      {
+        title: "Week 7: 📈 Data Visualization with Matplotlib",
+        overview: "Visualize data using Matplotlib and Seaborn for better insights.",
+        project: "Mini Project: Data Plotter",
+        days: [
+          ["Install matplotlib & import plt 📦", "Line plots & scatter plots 📈", "Practice: Plotting data 🏗️", "🔍 Explore: Data viz in AI"],
+          ["Bar charts & histograms 📊", "Practice: Bar/histogram plots 🧑‍💻", "Pie charts & customizations 🥧", "🔍 Explore: Chart types"],
+          ["Subplots & figure layout 🖼️", "Practice: Multiple plots 🧩", "Legends & labels 🏷️", "🔍 Explore: Plot aesthetics"],
+          ["Seaborn intro & install 🐦", "Practice: Seaborn plots 🧪", "Heatmaps & pairplots 🔥", "🔍 Explore: Seaborn vs Matplotlib"],
+          ["Saving plots to files 💾", "Practice: Save/export plots 🗃️", "Customizing styles 🎨", "🔍 Explore: Plot themes"],
+          ["Interactive plots (plotly) 🕹️", "Practice: Interactive charts 🧑‍💻", "Dashboards overview 📊", "🔍 Explore: Plotly in AI"],
+          ["Review & recap quiz 📝", "Practice: Viz quiz 🧠", "Mini project: Data plotter 📈", "🔍 Explore: Data viz portfolios"]
+        ]
+      },
+      {
+        title: "Week 8: 🧹 Data Cleaning & EDA",
+        overview: "Clean, preprocess, and explore datasets for machine learning.",
+        project: "Mini Project: Data Cleaning Pipeline",
+        days: [
+          ["What is EDA? Overview 🔍", "Practice: EDA on sample data 🧑‍💻", "Data types & conversions 🔢", "🔍 Explore: EDA in AI"],
+          ["Handling missing values 🚫", "Practice: Fill/drop NAs 🧹", "Detecting outliers 🚨", "🔍 Explore: Outlier detection"],
+          ["Data normalization & scaling 📏", "Practice: Scaling data 🧪", "Encoding categorical data 🏷️", "🔍 Explore: One-hot encoding"],
+          ["Feature engineering basics 🛠️", "Practice: Create new features 🧩", "Feature selection methods 🧠", "🔍 Explore: Feature importance"],
+          ["Data splitting: train/test 📊", "Practice: Split datasets 🧪", "Random state & reproducibility 🔁", "🔍 Explore: Data leakage"],
+          ["EDA visualization: boxplots, pairplots 📦", "Practice: EDA plots 🖼️", "Correlation analysis 🔗", "🔍 Explore: Correlation in ML"],
+          ["Review & recap quiz 📝", "Practice: EDA quiz 🧠", "Mini project: Data cleaning pipeline 🧹", "🔍 Explore: EDA tools"]
+        ]
+      },
+      // Month 3: ML Algorithms – Regression, Classification, Model Evaluation
+      {
+        title: "Week 9: 🤖 Intro to Machine Learning",
+        overview: "Understand the basics of machine learning and its workflow.",
+        project: "Mini Project: ML Workflow Demo",
+        days: [
+          ["What is ML? Overview 🤖", "Types of ML: Supervised/Unsupervised 🧠", "ML workflow steps 🛤️", "🔍 Explore: ML in real life"],
+          ["Scikit-learn intro & install 🛠️", "Practice: Load datasets 🗃️", "Train/test split in sklearn 📊", "🔍 Explore: sklearn datasets"],
+          ["Linear regression theory 📈", "Practice: Fit linear model 🧑‍💻", "Evaluate regression (MSE, R2) 📏", "🔍 Explore: Regression use cases"],
+          ["Classification theory 🏷️", "Practice: Fit classifier 🧑‍💻", "Evaluate classifier (accuracy, F1) 🏆", "🔍 Explore: Classification in AI"],
+          ["Overfitting & underfitting ⚠️", "Practice: Model complexity 🧪", "Cross-validation basics 🔄", "🔍 Explore: Bias-variance tradeoff"],
+          ["Model selection & metrics 🏆", "Practice: Compare models 🧑‍💻", "Confusion matrix & ROC 📊", "🔍 Explore: Model evaluation"],
+          ["Review & recap quiz 📝", "Practice: ML quiz 🧠", "Mini project: ML workflow demo 🤖", "🔍 Explore: ML tools"]
+        ]
+      },
+      {
+        title: "Week 10: 📉 Regression Algorithms",
+        overview: "Dive deeper into regression algorithms and their applications.",
+        project: "Mini Project: House Price Predictor",
+        days: [
+          ["Simple linear regression 📈", "Practice: Predict house prices 🏠", "Visualize regression results 📊", "🔍 Explore: Regression datasets"],
+          ["Multiple linear regression ➕", "Practice: Multi-feature regression 🧑‍💻", "Polynomial regression 🧮", "🔍 Explore: Nonlinear regression"],
+          ["Ridge & Lasso regression 🏔️", "Practice: Regularization 🧪", "Hyperparameter tuning ⚙️", "🔍 Explore: Overfitting solutions"],
+          ["Logistic regression theory 🏷️", "Practice: Binary classification 🧑‍💻", "ROC & AUC metrics 📊", "🔍 Explore: Logistic regression"],
+          ["Model evaluation metrics 📏", "Practice: Evaluate models 🧪", "Cross-validation in regression 🔄", "🔍 Explore: Model selection"],
+          ["Feature selection for regression 🧠", "Practice: Feature importance 🏆", "Pipelines in sklearn 🛤️", "🔍 Explore: Feature engineering"],
+          ["Review & recap quiz 📝", "Practice: Regression quiz 🧠", "Mini project: House price predictor 🏠", "🔍 Explore: Regression in industry"]
+        ]
+      },
+      {
+        title: "Week 11: 🏷️ Classification Algorithms",
+        overview: "Learn about classification algorithms and how to evaluate them.",
+        project: "Mini Project: Iris Classifier",
+        days: [
+          ["KNN classifier theory 🧑‍🤝‍🧑", "Practice: KNN on iris dataset 🌸", "Confusion matrix 📊", "🔍 Explore: KNN in real life"],
+          ["Decision trees theory 🌳", "Practice: Decision tree classifier 🧑‍💻", "Visualize decision trees 🖼️", "🔍 Explore: Tree algorithms"],
+          ["Random forests theory 🌲", "Practice: Random forest classifier 🧑‍💻", "Feature importance in trees 🧠", "🔍 Explore: Ensemble methods"],
+          ["SVM theory 🥋", "Practice: SVM classifier 🧑‍💻", "Kernel tricks 🧩", "🔍 Explore: SVM applications"],
+          ["Naive Bayes theory 🧮", "Practice: Naive Bayes classifier 🧑‍💻", "Probabilities in ML 📊", "🔍 Explore: Bayes in AI"],
+          ["Model evaluation: accuracy, F1, ROC 🏆", "Practice: Compare classifiers 🧑‍💻", "Hyperparameter tuning ⚙️", "🔍 Explore: Model selection"],
+          ["Review & recap quiz 📝", "Practice: Classification quiz 🧠", "Mini project: Iris classifier 🌸", "🔍 Explore: Classification in industry"]
+        ]
+      },
+      {
+        title: "Week 12: 🧪 Model Evaluation & Selection",
+        overview: "Master model evaluation, selection, and validation techniques.",
+        project: "Mini Project: Model Comparison Dashboard",
+        days: [
+          ["Train/test/validation splits 📊", "Practice: Data splitting 🧑‍💻", "Cross-validation in depth 🔄", "🔍 Explore: Validation strategies"],
+          ["Grid search & random search 🔍", "Practice: Hyperparameter tuning 🧪", "Model selection criteria 🏆", "🔍 Explore: Model tuning"],
+          ["Ensemble methods overview 🧑‍🤝‍🧑", "Practice: Voting/stacking 🗳️", "Bagging & boosting theory 🏋️", "🔍 Explore: Ensemble in ML"],
+          ["Bias-variance tradeoff ⚖️", "Practice: Bias/variance demo 🧪", "Learning curves 📈", "🔍 Explore: Under/overfitting"],
+          ["Model interpretability basics 🧠", "Practice: SHAP/LIME intro 🧑‍💻", "Feature importance 📊", "🔍 Explore: Explainable AI"],
+          ["Saving/loading models 💾", "Practice: Pickle/joblib models 🗃️", "Model deployment intro 🚀", "🔍 Explore: Model serving"],
+          ["Review & recap quiz 📝", "Practice: Model eval quiz 🧠", "Mini project: Model dashboard 📊", "🔍 Explore: Model evaluation tools"]
+        ]
+      },
+      // Month 4: Deep ML – Clustering, KNN, Model Tuning, Pipelines
+      {
+        title: "Week 13: 🧩 Clustering & Unsupervised Learning",
+        overview: "Explore unsupervised learning, clustering, and dimensionality reduction.",
+        project: "Mini Project: Customer Segmentation",
+        days: [
+          ["What is clustering? Overview 🧩", "Practice: KMeans clustering 🧑‍💻", "Visualize clusters 📊", "🔍 Explore: Clustering in AI"],
+          ["Hierarchical clustering theory 🏗️", "Practice: Agglomerative clustering 🧑‍💻", "Dendrograms & plots 🌳", "🔍 Explore: Hierarchical clustering"],
+          ["DBSCAN & density-based clustering 🏝️", "Practice: DBSCAN demo 🧪", "Cluster evaluation metrics 🏆", "🔍 Explore: Clustering metrics"],
+          ["Dimensionality reduction intro 📉", "PCA theory & practice 🧑‍💻", "t-SNE/UMAP overview 🗺️", "🔍 Explore: Dimensionality reduction"],
+          ["Feature scaling for clustering 📏", "Practice: Scaling demo 🧪", "Choosing cluster number 🔢", "🔍 Explore: Elbow method"],
+          ["Clustering in real datasets 🗃️", "Practice: Real-world clustering 🧑‍💻", "Visualize high-dim data 🖼️", "🔍 Explore: Clustering in business"],
+          ["Review & recap quiz 📝", "Practice: Clustering quiz 🧠", "Mini project: Customer segmentation 🧩", "🔍 Explore: Unsupervised learning"]
+        ]
+      },
+      {
+        title: "Week 14: 🧑‍🤝‍🧑 KNN & Recommendation Systems",
+        overview: "Learn about K-Nearest Neighbors and build simple recommendation systems.",
+        project: "Mini Project: Movie Recommender",
+        days: [
+          ["KNN algorithm theory 🧑‍🤝‍🧑", "Practice: KNN for classification 🧑‍💻", "KNN for regression 🧮", "🔍 Explore: KNN in recommender systems"],
+          ["Distance metrics (Euclidean, etc.) 📏", "Practice: Distance calculations 🧪", "Feature scaling for KNN 📐", "🔍 Explore: Distance in ML"],
+          ["Recommendation system basics 🎬", "Practice: Simple recommender 🧑‍💻", "Collaborative filtering intro 🤝", "🔍 Explore: Recommender types"],
+          ["Content-based filtering theory 📚", "Practice: Content-based demo 🧑‍💻", "Hybrid recommenders overview 🧩", "🔍 Explore: Netflix/Amazon recommenders"],
+          ["Evaluating recommenders 🏆", "Practice: Recommender metrics 🧪", "Cold start problem ❄️", "🔍 Explore: Recommender challenges"],
+          ["Deploying recommenders 🚀", "Practice: Save/load models 💾", "User feedback in recommenders 🗣️", "🔍 Explore: Recommender deployment"],
+          ["Review & recap quiz 📝", "Practice: KNN quiz 🧠", "Mini project: Movie recommender 🎬", "🔍 Explore: Recommendation systems"]
+        ]
+      },
+      {
+        title: "Week 15: 🛠️ Model Tuning & Pipelines",
+        overview: "Automate ML workflows with pipelines and tune models for best performance.",
+        project: "Mini Project: ML Pipeline Builder",
+        days: [
+          ["What are pipelines? Overview 🛤️", "Practice: Build sklearn pipeline 🧑‍💻", "Pipeline steps & transformers 🧩", "🔍 Explore: Pipeline use cases"],
+          ["Hyperparameter tuning in pipelines ⚙️", "Practice: GridSearchCV in pipeline 🧪", "RandomizedSearchCV demo 🎲", "🔍 Explore: Tuning strategies"],
+          ["Feature engineering in pipelines 🛠️", "Practice: FeatureUnion demo 🧑‍💻", "Custom transformers 🧑‍🔬", "🔍 Explore: Feature engineering"],
+          ["Cross-validation in pipelines 🔄", "Practice: CV pipeline demo 🧪", "Pipeline evaluation 🏆", "🔍 Explore: CV best practices"],
+          ["Saving/loading pipelines 💾", "Practice: Save/load pipeline 🗃️", "Pipeline deployment intro 🚀", "🔍 Explore: Pipeline deployment"],
+          ["Pipeline debugging & logging 🐞", "Practice: Debug pipeline 🧑‍💻", "Logging in ML pipelines 📋", "🔍 Explore: Pipeline monitoring"],
+          ["Review & recap quiz 📝", "Practice: Pipeline quiz 🧠", "Mini project: Pipeline builder 🛠️", "🔍 Explore: ML workflow tools"]
+        ]
+      },
+      {
+        title: "Week 16: 🧮 Math for AI",
+        overview: "Strengthen your math foundation for AI: linear algebra, calculus, and probability.",
+        project: "Mini Project: Linear Algebra Visualizer",
+        days: [
+          ["Linear algebra basics 📐", "Practice: Vectors & matrices 🧑‍💻", "Matrix multiplication 🧮", "🔍 Explore: Linear algebra in AI"],
+          ["Eigenvalues & eigenvectors 🧬", "Practice: Eigen demo 🧪", "Determinants & inverses 🧮", "🔍 Explore: Eigen in ML"],
+          ["Calculus basics (derivatives) 📈", "Practice: Derivative demo 🧑‍💻", "Gradients in ML 🏔️", "🔍 Explore: Calculus in AI"],
+          ["Probability theory basics 🎲", "Practice: Probability exercises 🧪", "Distributions in ML 📊", "🔍 Explore: Probability in AI"],
+          ["Statistics basics 📊", "Practice: Stats exercises 🧑‍💻", "Descriptive/inferential stats 🧠", "🔍 Explore: Stats in ML"],
+          ["Math libraries: numpy, scipy 📦", "Practice: Math with numpy 🧑‍💻", "Scipy for stats & math 🧪", "🔍 Explore: Math in Python"],
+          ["Review & recap quiz 📝", "Practice: Math quiz 🧠", "Mini project: Algebra visualizer 📐", "🔍 Explore: Math for AI"]
+        ]
+      },
+      // Month 5: Deep Learning – Neural Networks, CNN, RNN, NLP
+      {
+        title: "Week 17: 🧠 Deep Learning Basics",
+        overview: "Begin your deep learning journey: neural networks, activation functions, and basics.",
+        project: "Mini Project: Perceptron Demo",
+        days: [
+          ["What is deep learning? Overview 🧠", "Neural network basics 🧑‍💻", "Activation functions 🔋", "🔍 Explore: Deep learning in AI"],
+          ["Forward & backward propagation 🔄", "Practice: Simple NN in numpy 🧑‍💻", "Loss functions & gradients 📉", "🔍 Explore: Backpropagation"],
+          ["Keras & TensorFlow intro 🤖", "Practice: Build NN in Keras 🧑‍💻", "Model.compile & fit 🏗️", "🔍 Explore: Keras vs PyTorch"],
+          ["Model evaluation in DL 🏆", "Practice: Evaluate NN 🧪", "Overfitting in DL ⚠️", "🔍 Explore: Regularization in DL"],
+          ["Saving/loading DL models 💾", "Practice: Save/load Keras model 🗃️", "Callbacks & checkpoints 🛎️", "🔍 Explore: Model checkpoints"],
+          ["GPU vs CPU in DL 🖥️", "Practice: Run on GPU (Colab) 🧑‍💻", "DL hardware overview 🖥️", "🔍 Explore: AI hardware"],
+          ["Review & recap quiz 📝", "Practice: DL quiz 🧠", "Mini project: Perceptron demo 🧠", "🔍 Explore: Deep learning tools"]
+        ]
+      },
+      {
+        title: "Week 18: 🕸️ Neural Networks in Practice",
+        overview: "Build, train, and tune neural networks for real-world data.",
+        project: "Mini Project: Handwritten Digit Recognizer",
+        days: [
+          ["Feedforward NN theory 🧑‍💻", "Practice: Build FFNN in Keras 🏗️", "MNIST dataset intro 🖼️", "🔍 Explore: Image datasets"],
+          ["Convolutional NN (CNN) basics 🧠", "Practice: Build CNN in Keras 🏗️", "Image preprocessing 🖼️", "🔍 Explore: CNN in vision"],
+          ["Pooling layers & dropout 🏊", "Practice: Add dropout to CNN 🧪", "Data augmentation 📈", "🔍 Explore: Data augmentation"],
+          ["Recurrent NN (RNN) basics 🔁", "Practice: Build RNN in Keras 🏗️", "Sequence data intro 🧵", "🔍 Explore: RNN in NLP"],
+          ["LSTM & GRU theory 🧠", "Practice: LSTM demo 🧑‍💻", "Time series in DL ⏳", "🔍 Explore: LSTM/GRU in AI"],
+          ["Model tuning in DL ⚙️", "Practice: Tune NN hyperparams 🧪", "Early stopping & callbacks 🛎️", "🔍 Explore: Tuning in DL"],
+          ["Review & recap quiz 📝", "Practice: NN quiz 🧠", "Mini project: Digit recognizer 🖼️", "🔍 Explore: DL in industry"]
+        ]
+      },
+      {
+        title: "Week 19: 🖼️ Computer Vision",
+        overview: "Explore computer vision, image processing, and CNN architectures.",
+        project: "Mini Project: Image Classifier",
+        days: [
+          ["Image processing basics 🖼️", "Practice: OpenCV intro 🧑‍💻", "Image filters & transforms 🧪", "🔍 Explore: OpenCV in AI"],
+          ["CNN architectures: LeNet, AlexNet, VGG 🏗️", "Practice: Build VGG-like CNN 🧑‍💻", "Transfer learning intro 🔄", "🔍 Explore: Pretrained models"],
+          ["Object detection basics 🎯", "Practice: Object detection demo 🧑‍💻", "YOLO/SSD overview 🦁", "🔍 Explore: Object detection in AI"],
+          ["Image augmentation & preprocessing 📈", "Practice: Augment images 🧪", "Data generators in Keras 🏗️", "🔍 Explore: Data pipelines"],
+          ["Evaluation metrics in vision 🏆", "Practice: Evaluate classifier 🧑‍💻", "Confusion matrix for images 📊", "🔍 Explore: Vision metrics"],
+          ["Deploying vision models 🚀", "Practice: Save/load vision model 💾", "ONNX & model conversion 🔄", "🔍 Explore: Model deployment"],
+          ["Review & recap quiz 📝", "Practice: Vision quiz 🧠", "Mini project: Image classifier 🖼️", "🔍 Explore: Computer vision tools"]
+        ]
+      },
+      {
+        title: "Week 20: 🗣️ NLP Basics",
+        overview: "Get started with Natural Language Processing and text data.",
+        project: "Mini Project: Text Sentiment Analyzer",
+        days: [
+          ["What is NLP? Overview 🗣️", "Text preprocessing basics 🧹", "Tokenization & stopwords 🧩", "🔍 Explore: NLP in AI"],
+          ["Bag of Words & TF-IDF 🧑‍💻", "Practice: Text vectorization 🧪", "NLP datasets intro 📚", "🔍 Explore: Text datasets"],
+          ["Word embeddings theory 🧠", "Practice: Word2Vec/GloVe 🧑‍💻", "Embeddings in Keras 🏗️", "🔍 Explore: Embeddings in NLP"],
+          ["Text classification basics 🏷️", "Practice: Sentiment analysis 🧑‍💻", "Evaluate text models 🏆", "🔍 Explore: Sentiment in industry"],
+          ["Sequence models in NLP 🔁", "Practice: RNN/LSTM for text 🧑‍💻", "Attention mechanism intro 👀", "🔍 Explore: Attention in NLP"],
+          ["NLP libraries: NLTK, spaCy, HuggingFace 🤗", "Practice: NLP with spaCy 🧑‍💻", "Transformers overview 🤖", "🔍 Explore: Transformers in NLP"],
+          ["Review & recap quiz 📝", "Practice: NLP quiz 🧠", "Mini project: Sentiment analyzer 🗣️", "🔍 Explore: NLP tools"]
+        ]
+      },
+      // Month 6: Final Projects, Model Deployment, Flask/Streamlit, Portfolio
+      {
+        title: "Week 21: 🤖 Advanced NLP & Transformers",
+        overview: "Dive into advanced NLP topics and transformer models.",
+        project: "Mini Project: Chatbot",
+        days: [
+          ["Transformers theory 🤖", "Practice: HuggingFace transformers 🧑‍💻", "Fine-tuning transformers 🛠️", "🔍 Explore: LLMs in AI"],
+          ["BERT & GPT overview 🧠", "Practice: BERT for text 🧑‍💻", "Prompt engineering basics 📝", "🔍 Explore: Prompting in NLP"],
+          ["Text generation models 📝", "Practice: Generate text 🧑‍💻", "Summarization & Q&A models 📚", "🔍 Explore: Text generation"],
+          ["Conversational AI basics 🗣️", "Practice: Build a chatbot 🧑‍💻", "Dialogue management 🧩", "🔍 Explore: Chatbots in industry"],
+          ["NLP in production 🚀", "Practice: Deploy NLP model 🧑‍💻", "APIs for NLP models 🌐", "🔍 Explore: NLP deployment"],
+          ["Ethics in NLP & AI ⚖️", "Practice: Bias/fairness demo 🧪", "Responsible AI in NLP 🧑‍💻", "🔍 Explore: AI ethics"],
+          ["Review & recap quiz 📝", "Practice: Transformers quiz 🧠", "Mini project: Chatbot 🤖", "🔍 Explore: NLP research"]
+        ]
+      },
+      {
+        title: "Week 22: 🚀 Model Deployment & APIs",
+        overview: "Learn to deploy models using Flask, Streamlit, and build APIs.",
+        project: "Mini Project: Model API",
+        days: [
+          ["What is model deployment? Overview 🚀", "Practice: Deploy with Flask 🧑‍💻", "REST API basics 🌐", "🔍 Explore: Model deployment in AI"],
+          ["Streamlit intro & install 🖥️", "Practice: Build Streamlit app 🧑‍💻", "UI design for ML apps 🎨", "🔍 Explore: Streamlit gallery"],
+          ["Docker basics for ML 🐳", "Practice: Dockerize ML app 🧑‍💻", "Containers vs VMs 🏗️", "🔍 Explore: Docker in AI"],
+          ["CI/CD for ML projects 🔄", "Practice: GitHub Actions for ML 🧑‍💻", "Testing ML APIs 🧪", "🔍 Explore: CI/CD in ML"],
+          ["Monitoring deployed models 📈", "Practice: Model monitoring demo 🧑‍💻", "Logging & alerts 🛎️", "🔍 Explore: Model monitoring tools"],
+          ["Scaling ML apps in cloud ☁️", "Practice: Deploy to cloud 🧑‍💻", "Cloud providers overview 🌐", "🔍 Explore: Cloud in AI"],
+          ["Review & recap quiz 📝", "Practice: Deployment quiz 🧠", "Mini project: Model API 🚀", "🔍 Explore: Model deployment tools"]
+        ]
+      },
+      {
+        title: "Week 23: 💼 Portfolio & Capstone Project I",
+        overview: "Start your capstone project and build your AI portfolio.",
+        project: "Mini Project: Capstone Project (Part 1)",
+        days: [
+          ["Choose capstone project idea 💡", "Define project scope 📝", "Setup project repo on GitHub 🗂️", "🔍 Explore: AI project ideas"],
+          ["Data collection & cleaning 🧹", "Practice: Gather datasets 🗃️", "EDA on project data 🔍", "🔍 Explore: Data sources"],
+          ["Model selection for project 🧠", "Practice: Baseline model 🧑‍💻", "Feature engineering for project 🛠️", "🔍 Explore: Model selection"],
+          ["Model training & evaluation 🏆", "Practice: Train/test split 🧪", "Hyperparameter tuning ⚙️", "🔍 Explore: Model tuning"],
+          ["Model improvement & iteration 🔄", "Practice: Improve accuracy 🧑‍💻", "Error analysis 🐞", "🔍 Explore: Error analysis"],
+          ["Documentation & reporting 📄", "Practice: Write project report 📝", "Prepare project slides 📊", "🔍 Explore: AI portfolios"],
+          ["Review & recap quiz 📝", "Practice: Capstone quiz 🧠", "Mini project: Capstone part 1 💼", "🔍 Explore: Portfolio tips"]
+        ]
+      },
+      {
+        title: "Week 24: 🏆 Capstone Project II & Portfolio",
+        overview: "Complete your capstone, polish your portfolio, and prepare for next steps.",
+        project: "Mini Project: Capstone Project (Part 2)",
+        days: [
+          ["Model deployment for capstone 🚀", "Practice: Deploy project model 🧑‍💻", "Build project UI (Streamlit/Flask) 🖥️", "🔍 Explore: Model deployment"],
+          ["Testing & debugging project 🐞", "Practice: Test project features 🧪", "User feedback & iteration 🗣️", "🔍 Explore: User testing"],
+          ["Prepare project presentation 📊", "Practice: Present to peers 🧑‍💻", "Portfolio website basics 🌐", "🔍 Explore: Portfolio sites"],
+          ["LinkedIn & GitHub portfolio 💼", "Practice: Update LinkedIn/GitHub 🧑‍💻", "Networking in AI 🤝", "🔍 Explore: AI communities"],
+          ["Job search strategies 🔍", "Practice: Resume/CV update 📝", "Interview prep for AI jobs 🎤", "🔍 Explore: AI job boards"],
+          ["Final review & reflection 📝", "Practice: Reflect on learning 🧠", "Plan next steps 🚀", "🔍 Explore: Lifelong learning"],
+          ["Celebrate your journey! 🎉", "Share your project online 🌐", "Connect with AI community 🤝", "🔍 Explore: Next AI trends"]
+        ]
+      }
+    ];
+    // --- Quotes ---
+    const QUOTES = [
+      "Success is the sum of small efforts, repeated day in and day out.",
+      "The journey of a thousand miles begins with a single step.",
+      "Learning never exhausts the mind.",
+      "Don’t watch the clock; do what it does. Keep going.",
+      "Great things are done by a series of small things brought together.",
+      "Dream big, work hard, stay focused, and surround yourself with good people.",
+      "The best way to get started is to quit talking and begin doing.",
+      "Push yourself, because no one else is going to do it for you.",
+      "Believe you can and you’re halfway there.",
+      "Your only limit is your mind.",
+      "Every expert was once a beginner.",
+      "Small progress is still progress.",
+      "You don’t have to be great to start, but you have to start to be great.",
+      "Stay curious, keep learning."
+    ];
+    // --- Storage Keys ---
+    const STORAGE_KEY = 'ai_python_roadmap_v2';
+    const THEME_KEY = 'ai_python_roadmap_theme';
+    // --- Utility Functions ---
+    function getTodayStr() {
+      const d = new Date();
+      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+    function saveState(state) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+    function loadState() {
+      let state = localStorage.getItem(STORAGE_KEY);
+      return state ? JSON.parse(state) : {};
+    }
+    function resetState() {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+    function saveTheme(theme) {
+      localStorage.setItem(THEME_KEY, theme);
+    }
+    function loadTheme() {
+      return localStorage.getItem(THEME_KEY) || 'light';
+    }
+    // --- Render Functions ---
+    function renderStats(state) {
+      let totalTasks = 24*7*4;
+      let completedTasks = 0;
+      let remainingDays = 0;
+      for(let w=1;w<=24;w++){
+        for(let d=1;d<=7;d++){
+          let dayKey = `w${w}d${d}`;
+          let arr = (state[dayKey]||[false,false,false,false,false]);
+          completedTasks += arr.slice(0,4).filter(Boolean).length;
+          if(!arr[4]) remainingDays++;
+        }
+      }
+      document.getElementById('stats').innerHTML =
+        `<span>Tasks: <b>${completedTasks}</b> / ${totalTasks}</span>`+
+        `<span>Remaining Days: <b>${remainingDays}</b></span>`;
+    }
+    function renderProgress(state) {
+      let total = 24*7*5; // 4 tasks + 1 main per day
+      let done = 0;
+      for(let w=1;w<=24;w++){
+        for(let d=1;d<=7;d++){
+          let arr = (state[`w${w}d${d}`]||[false,false,false,false,false]);
+          done += arr.filter(Boolean).length;
+        }
+      }
+      let percent = Math.round((done/total)*100);
+      document.getElementById('progressBar').style.width = percent + '%';
+      document.getElementById('progressLabel').textContent = percent + '%';
+    }
+    function getWeekStatus(state, w) {
+      let all = true, none = true;
+      for(let d=1;d<=7;d++){
+        let arr = (state[`w${w}d${d}`]||[false,false,false,false,false]);
+        if(!arr[4]) all = false;
+        if(arr[4]) none = false;
+      }
+      return all ? 'completed' : (none ? 'incomplete' : 'partial');
+    }
+    function getDayStatus(state, w, d) {
+      let arr = (state[`w${w}d${d}`]||[false,false,false,false,false]);
+      return arr[4] ? 'completed' : 'incomplete';
+    }
+function renderWeeks(filter='all') {
+  const state = loadState();
+  const weeksList = document.getElementById('weeksList');
+  weeksList.innerHTML = '';
+  for(let w=1; w<=WEEK_CONTENT.length; w++){
+    let weekObj = WEEK_CONTENT[w-1];
+    let weekStatus = getWeekStatus(state, w);
+
+    // Remove week from all views if completed (except for 'completed' filter)
+    if(weekStatus==='completed' && filter!=='completed') continue;
+    if(filter==='completed' && weekStatus!=='completed') continue;
+    if(filter==='incomplete' && weekStatus==='completed') continue;
+
+    let weekCard = document.createElement('div');
+    weekCard.className = 'week-card';
+    // Header
+    let header = document.createElement('div');
+    header.className = 'week-header';
+    header.innerHTML = `<span class="week-title">${weekObj.title}</span>`+
+      `<span class="week-status">${weekStatus==='completed'?'✅':'📅'}</span>`+
+      `<span class="arrow">▼</span>`;
+    // Collapse/expand logic for week
+    header.addEventListener('click', function(){
+      let isCollapsed = daysGrid.classList.contains('collapsed');
+      document.querySelectorAll('.days-grid').forEach(g => g.classList.add('collapsed'));
+      document.querySelectorAll('.week-header').forEach(h => h.classList.remove('collapsed'));
+      if(isCollapsed) {
+        daysGrid.classList.remove('collapsed');
+        header.classList.add('collapsed');
+      }
+    });
+    weekCard.appendChild(header);
+    // Overview
+    let overview = document.createElement('div');
+    overview.style.padding = '0 18px 8px 18px';
+    overview.style.fontStyle = 'italic';
+    overview.style.color = '#888';
+    overview.textContent = weekObj.overview;
+    weekCard.appendChild(overview);
+    // Mini Project
+    let project = document.createElement('div');
+    project.className = 'project-title';
+    project.style.padding = '0 18px 12px 18px';
+    project.style.fontWeight = 'bold';
+    project.style.color = '#6a82fb';
+    project.textContent = weekObj.project;
+    weekCard.appendChild(project);
+    // Days
+    let daysGrid = document.createElement('div');
+    daysGrid.className = 'days-grid collapsed';
+    if(filter==='completed') daysGrid.classList.add('collapsed');
+    for(let d=1; d<=7; d++){
+      let dayStatus = getDayStatus(state, w, d);
+      if(filter==='completed' && dayStatus!=='completed') continue;
+      if(filter==='incomplete' && dayStatus==='completed') continue;
+      let arr = (state[`w${w}d${d}`]||[false,false,false,false,false,'']);
+      let dayCard = document.createElement('div');
+      dayCard.className = 'day-card'+(arr[4]?' completed':'');
+      dayCard.style.width = '100%';
+      // Header
+      let dayHeader = document.createElement('div');
+      dayHeader.className = 'day-header';
+      let dayTitle = document.createElement('div');
+      dayTitle.className = 'day-title';
+      dayTitle.innerHTML = `<span class="icon day">📆</span>Day ${d}`;
+      let mainCheckbox = document.createElement('input');
+      mainCheckbox.type = 'checkbox';
+      mainCheckbox.className = 'day-complete';
+      mainCheckbox.checked = arr[4];
+      mainCheckbox.id = `w${w}d${d}-complete`;
+      let dateLabel = document.createElement('span');
+      dateLabel.className = 'date-label';
+      // Show date if completed
+      dateLabel.textContent = arr[4] && arr[5] ? `Done: ${arr[5]}` : '';
+      let statusIcon = document.createElement('span');
+      statusIcon.className = 'day-status';
+      statusIcon.textContent = arr[4] ? '✅' : '🔒';
+      mainCheckbox.addEventListener('change', function(){
+        let state = loadState();
+        if(!state[`w${w}d${d}`]) state[`w${w}d${d}`]=[false,false,false,false,false,''];
+        state[`w${w}d${d}`][4]=this.checked;
+        if(this.checked){
+          state[`w${w}d${d}`][5]=getTodayStr();
+        }else{
+          state[`w${w}d${d}`][5]='';
+        }
+        saveState(state);
+        renderWeeks(currentFilter());
+        renderProgress(state);
+        renderStats(state);
+      });
+      dayHeader.appendChild(dayTitle);
+      dayHeader.appendChild(mainCheckbox);
+      dayHeader.appendChild(statusIcon);
+      dayHeader.appendChild(dateLabel);
+      dayCard.appendChild(dayHeader);
+      // Tasks
+      let ul = document.createElement('ul');
+      ul.className = 'tasks-list';
+      ul.style.width = '100%';
+      let dayTasks = weekObj.days[d-1];
+      for(let t=0; t<4; t++){
+        let taskText = dayTasks[t];
+        let li = document.createElement('li');
+        li.className = 'task-item'+(taskText.includes('🔍')?' explore':'');
+        let cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.className = 'task-checkbox';
+        cb.checked = !!arr[t];
+        cb.id = `w${w}d${d}-task${t+1}`;
+        cb.addEventListener('change', function(){
+          let state = loadState();
+          if(!state[`w${w}d${d}`]) state[`w${w}d${d}`]=[false,false,false,false,false,''];
+          state[`w${w}d${d}`][t]=this.checked;
+          // If all 4 checked, auto-check main and set date
+          if(state[`w${w}d${d}`][0]&&state[`w${w}d${d}`][1]&&state[`w${w}d${d}`][2]&&state[`w${w}d${d}`][3]){
+            state[`w${w}d${d}`][4]=true;
+            state[`w${w}d${d}`][5]=getTodayStr();
+          }else{
+            state[`w${w}d${d}`][4]=false;
+            state[`w${w}d${d}`][5]='';
+          }
+          saveState(state);
+          renderWeeks(currentFilter());
+          renderProgress(state);
+          renderStats(state);
+        });
+        // Emoji/icon extraction (if present)
+        let icon = document.createElement('span');
+        icon.className = 'icon'+(taskText.includes('🔍')?' explore':' task');
+        let match = taskText.match(/([\p{Emoji}\u200d\ufe0f]+)/gu);
+        if(match && match.length>0){
+          icon.textContent = match[0];
+        }else{
+          icon.textContent = '•';
+        }
+        let label = document.createElement('span');
+        label.textContent = taskText.replace(/([\p{Emoji}\u200d\ufe0f]+)/gu, '').trim();
+        li.appendChild(cb);
+        li.appendChild(icon);
+        li.appendChild(label);
+        ul.appendChild(li);
+      }
+      dayCard.appendChild(ul);
+      daysGrid.appendChild(dayCard);
+    }
+    weekCard.appendChild(daysGrid);
+    weeksList.appendChild(weekCard);
+  }
+}
+
+    document.querySelectorAll('.filter-btn').forEach(btn=>{
+      btn.addEventListener('click',function(){
+        document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+        this.classList.add('active');
+        renderWeeks(this.getAttribute('data-filter'));
+        renderProgress(loadState());
+        renderStats(loadState());
+      });
+    });
+    document.getElementById('resetBtn').addEventListener('click',function(){
+      if(confirm('Reset all progress?')){
+        resetState();
+        renderWeeks(currentFilter());
+        renderProgress(loadState());
+        renderStats(loadState());
+      }
+    });
+    // Theme toggle
+    function setTheme(theme){
+      if(theme==='dark'){
+        document.body.classList.add('dark');
+        document.getElementById('themeToggle').textContent='☀️ Light';
+      }else{
+        document.body.classList.remove('dark');
+        document.getElementById('themeToggle').textContent='🌙 Dark';
+      }
+      saveTheme(theme);
+    }
+    document.getElementById('themeToggle').addEventListener('click',function(){
+      let theme = document.body.classList.contains('dark')?'light':'dark';
+      setTheme(theme);
+    });
+    // Scroll to top
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll',function(){
+      if(window.scrollY>200){
+        scrollBtn.classList.add('show');
+      }else{
+        scrollBtn.classList.remove('show');
+      }
+    });
+    scrollBtn.addEventListener('click',function(){
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+    // Motivational Quote
+    function showQuote(){
+      const idx = Math.floor(Math.random()*QUOTES.length);
+      document.getElementById('motivationalQuote').textContent = '💡 '+QUOTES[idx];
+    }
+    // Footer year
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+    // --- Initial Render ---
+    setTheme(loadTheme());
+    renderWeeks('all');
+    renderProgress(loadState());
+    renderStats(loadState());
+    showQuote();
+  </script>
+</body>
+</html>
+    renderProgress(loadState());
+    renderStats(loadState());
+    showQuote();
+  </script>
+</body>
+</html>
